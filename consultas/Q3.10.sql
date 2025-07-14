@@ -1,7 +1,8 @@
 #¿Cuál es el promedio de ventas por región o país durante el último trimestre del año 2023 y 2024? 
-SELECT trimestre, ROUND(SUM(ventas)/5,0) AS promedio_ventas_region
+SELECT 
+	trimestre, ROUND(SUM(ventas)/5,0) AS promedio_ventas_region
 FROM ( 
-    SELECT 
+    	SELECT 
 		CONCAT('Q', QUARTER(date_sale),'-',YEAR(date_sale)) AS trimestre,
 		continent AS region,
 		COUNT(id_sale) AS ventas
@@ -13,4 +14,4 @@ FROM (
 		region, 
 		CONCAT('Q', QUARTER(date_sale),'-',YEAR(date_sale))
 ) AS region_ventastrim
-GROUP BY trimestre
+GROUP BY trimestre;
