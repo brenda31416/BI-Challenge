@@ -4,7 +4,7 @@ WITH cliente_compras AS(
 		ct.country AS pais,
 		YEAR(s.date_sale) AS año_compra,
 		MONTH(s.date_sale) AS mes_compra,
-        c.customer_name AS cliente,
+        	c.customer_name AS cliente,
 		COUNT(id_sale) AS total_compras
 	FROM sales s
 	LEFT JOIN customers c ON s.id_customer=c.id_customer
@@ -13,22 +13,22 @@ WITH cliente_compras AS(
 		ct.country,
 		YEAR(s.date_sale),
 		MONTH(s.date_sale),
-        c.customer_name
+        	c.customer_name
 ),
 cliente_compras_ordenado AS(
 	SELECT *, RANK() OVER(PARTITION BY pais, año_compra, mes_compra ORDER BY total_compras DESC) AS rango
-    FROM cliente_compras
+    	FROM cliente_compras
 )
 SELECT 
 	pais,
-    año_compra,
-    mes_compra,
-    cliente,
-    total_compras
+	año_compra,
+    	mes_compra,
+    	cliente,
+    	total_compras
 FROM cliente_compras_ordenado
 WHERE rango=1
 ORDER BY 
 	pais, 
-    año_compra DESC,
-    mes_compra DESC;
+    	año_compra DESC,
+    	mes_compra DESC;
 	
